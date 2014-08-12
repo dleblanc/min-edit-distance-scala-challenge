@@ -1,4 +1,4 @@
-import DomHierarchy._
+import Element._
 import org.scalatest._
 import org.scalatest.prop.TableDrivenPropertyChecks._
 
@@ -26,11 +26,10 @@ class DomEditTests extends FunSuite with ShouldMatchers {
 
     test(s"[$testNum] Comparing '$h1Str' to '$h2Str' should yield an edit distance of $distance") {
 
+      val h1 = DomHierarchy.fromString(h1Str)
+      val h2 = DomHierarchy.fromString(h2Str)
 
-      //      val h1 = DomHierarchy.fromString(h1)
-      //      val h2 = DomHierarchy.fromString(h2)
-      //
-      //      compareHierarchies(h1Str, h2Str) should equal (distance)
+      DomHierarchy.getHierarchyEditDistance(h1, h2) should equal(distance)
     }
 
   }
@@ -58,6 +57,11 @@ class DomEditTests extends FunSuite with ShouldMatchers {
 
   test("Parse element parses tag, id and multiple classes") {
     parseElement("tagname#id.class1.class2") should equal(Element("tagname", id = Some("id"), classes = List("class1", "class2")))
+  }
+
+  test("Parses a dom hierarchy from a list of element descriptors") {
+    val elements = DomHierarchy.fromString("firstTag#firstId.firstClass1.firstClass2 secondTag#id.secondClass1.secondClass2").elements
+    elements.head should equal(Element("firstTag", id = Some("firstId"), classes = List("firstClass1", "firstClass2")))
   }
 
 }
