@@ -64,6 +64,18 @@ class DomEditTests extends FunSuite with ShouldMatchers {
     elements.head should equal(Element("firstTag", id = Some("firstId"), classes = List("firstClass1", "firstClass2")))
   }
 
+
+  test("Debug a failing case") {
+
+//    div#id img.photo
+//    a.btn
+//    4
+    val h1 = DomHierarchy.fromString("div#id img.photo")
+    val h2 = DomHierarchy.fromString("a.btn")
+
+    DomHierarchy.getHierarchyEditDistance(h1, h2) should equal(4)
+
+  }
 }
 
 
