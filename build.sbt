@@ -5,8 +5,7 @@ version := "1.0"
 scalaVersion := "2.11.1"
 
 // Change this to another test framework if you prefer
-libraryDependencies += "org.scalatest" %% "scalatest" % "2.1.6" % "test"
+libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.2" % "test"
 
-// Uncomment to use Akka
-//libraryDependencies += "com.typesafe.akka" % "akka-actor_2.11" % "2.3.3"
-
+// Always pair up with Scalatest-dependent versions
+libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.11.3" % "test"
