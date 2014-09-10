@@ -1,36 +1,11 @@
-import java.util.regex.Pattern
-
-class ElementException(msg: String) extends RuntimeException(msg)
-
 object Element {
-  val elementPattern =
-    """(?<tagName>[\w-]+)""" +
-    """((?:\#)(?<id>[\w-]+))?""" +
-    """(?<classes>((?:\.)([\w-]+))*)"""
-
-  val elementRegex = Pattern.compile(elementPattern)
 
   def parseElement(elementStr: String): Element = {
 
-    val matcher = elementRegex.matcher(elementStr)
+    val tagAndId :: classes = elementStr.split("""\.""").toList
+    val tagName :: idList = tagAndId.split("""#""").toList
 
-    if (matcher.matches()) {
-
-      val tagName = matcher.group("tagName")
-
-      val id = Option(matcher.group("id"))
-
-      val classes = Option(matcher.group("classes"))
-        .map(_.split("\\.").toSet)
-        .getOrElse(Nil)
-        .filter(_.length > 0)
-        .toSet
-
-      Element(tagName, id, classes)
-
-    } else {
-      throw new ElementException("Invalid element " + elementStr)
-    }
+    Element(tagName, idList.headOption, classes.toSet)
   }
 }
 

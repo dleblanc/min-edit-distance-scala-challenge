@@ -42,7 +42,7 @@ object DomHierarchy {
   }
 
   def domHierarchyLevDist(first: Seq[Element], second: Seq[Element]): Int = {
-    val swapCostFun = (first: Element, second: Element) => if (first == second) 0 else first.getSwapCostTo(second)
+    val swapCostFun = (first: Element, second: Element) => first.getSwapCostTo(second)
     val addCostFun = (item: Element) => item.getAddCost
     val delCostFun = (item: Element) => item.getDelCost
 
